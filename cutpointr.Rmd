@@ -1,0 +1,78 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+```{r}
+data = read.csv('D:\\KLTN\\TransferLearningPredictCYP2D6\\build\\data\\final_model\\probs.csv')
+data
+```
+
+
+```{r}
+library(cutpointr)
+```
+
+```{r}
+cp1 = cutpointr(x=data$No.Function, class = data$origin_label_1, pos_class = "Y")
+
+cp2 = cutpointr(x=data$Normal.Function, class = data$origin_label_2, pos_class = "N")
+```
+
+```{r}
+summary(cp1)
+```
+
+```{r}
+summary(cp2)
+```
+
+
+```{r}
+plot_cutpointr(cp1, cutpoint, accuracy)
+```
+
+e```{r}
+plot_cutpointr(cp2, cutpoint, accuracy)
+```
+
+
+
+```{r}
+?cutpointr
+```
+
+
+```{r}
+data("suicide")
+suicide
+```
+```{r}
+cutpointr(x = suicide$dsi, class = suicide$suicide)
+```
+
+
+```{r}
+table(suicide$suicide)
+```
+
+```{r}
+cp <- cutpointr(suicide, dsi, suicide, 
+                method = maximize_metric, metric = sum_sens_spec)
+```
+```{r}
+summary(cp)
+```
+
+```{r}
+?cutpoint
+```
+
+
+```{r}
+plot_cutpointr(cp, cutpoint, accuracy)
+```
+```{r}
+plot_cutpointr(cutpointr(x = suicide$dsi, class = suicide$suicide), cutpoint, accuracy)
+```
+
