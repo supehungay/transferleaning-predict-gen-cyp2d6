@@ -133,7 +133,7 @@ class PretrainModel:
         X_test, y_test = self.load_data(self.test_path)
         evaluate_model = self.model.evaluate(X_test, y_test)
         print(f'Loss_test and Accuracy_test: {evaluate_model}; evaluate on 10k dataset')
-
+        
 
 def main():
     TRAIN_PATH = '../data/pretrained_model/train'

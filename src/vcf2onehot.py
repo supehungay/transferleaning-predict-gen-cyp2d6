@@ -217,49 +217,49 @@ class VCF2Onehot:
 
         return data
     
-    def save_data_processed(self):
-        batch_label = sorted(glob.glob(self.label_path))
-        batch_data = sorted(glob.glob(self.data_path))
+#     def save_data_processed(self):
+#         batch_label = sorted(glob.glob(self.label_path))
+#         batch_data = sorted(glob.glob(self.data_path))
         
-        n_batch = 12
-        n_batch_train = 10
+#         n_batch = 12
+#         n_batch_train = 10
         
-        print(f'create {n_batch} batch: {n_batch_train} batch train and {n_batch - n_batch_train} batch test')
+#         print(f'create {n_batch} batch: {n_batch_train} batch train and {n_batch - n_batch_train} batch test')
         
-        for i in range(n_batch):
-            activate_score = []
-            # Generate the seq data
-            vcf = batch_data[i]
-            # print(vcf)
-            seqs = self.build_seqs(vcf)
-            # Create the data object
-            data = self.format_seqs(seqs)
+#         for i in range(n_batch):
+#             activate_score = []
+#             # Generate the seq data
+#             vcf = batch_data[i]
+#             # print(vcf)
+#             seqs = self.build_seqs(vcf)
+#             # Create the data object
+#             data = self.format_seqs(seqs)
 
-            with open(f'{batch_label[i]}') as f:
-                for line in f:
-                    activate_score.append(line.split(',')[-2])
+#             with open(f'{batch_label[i]}') as f:
+#                 for line in f:
+#                     activate_score.append(line.split(',')[-2])
             
-            data["activate_score"] = np.array(activate_score, dtype=np.float64)
+#             data["activate_score"] = np.array(activate_score, dtype=np.float64)
             
-            file_name = vcf.split('\\')[-1].split('.')[0]
+#             file_name = vcf.split('\\')[-1].split('.')[0]
             
-            if i < n_batch_train:
-                joblib.dump(data, f'../data/pretrained_model/train/{file_name}.joblib')
-                print(f"save train batch {i + 1}...")
-            else:
-                joblib.dump(data, f'../data/pretrained_model/test/{file_name}.joblib')
-                print(f'save test batch {(i - n_batch_train) + 1}...')
+#             if i < n_batch_train:
+#                 joblib.dump(data, f'../data/pretrained_model/train/{file_name}.joblib')
+#                 print(f"save train batch {i + 1}...")
+#             else:
+#                 joblib.dump(data, f'../data/pretrained_model/test/{file_name}.joblib')
+#                 print(f'save test batch {(i - n_batch_train) + 1}...')
             
-        print("Done!")
+#         print("Done!")
         
-def main():
-    data_path = '../data/simulated_cyp2d6_diplotypes/*.vcf'
-    label_path = '../data/simulated_cyp2d6_diplotypes/*.csv'
+# def main():
+#     data_path = '../data/simulated_cyp2d6_diplotypes/*.vcf'
+#     label_path = '../data/simulated_cyp2d6_diplotypes/*.csv'
     
-    data = VCF2Onehot(data_path=data_path, label_path=label_path)
-    data.save_data_processed()
+#     data = VCF2Onehot(data_path=data_path, label_path=label_path)
+#     data.save_data_processed()
 
-if __name__=='__main__':
-    main()
+# if __name__=='__main__':
+#     main()
 
 
